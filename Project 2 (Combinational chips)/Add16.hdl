@@ -1,0 +1,27 @@
+/**
+ * Adds two 16-bit values.
+ * The most significant carry bit is ignored.
+ */
+
+CHIP Add16 {
+    IN a[16], b[16];
+    OUT out[16];
+
+    PARTS:
+    HalfAdder(a=a[0], b=b[0], sum=out[0], carry=zerothBitCarry);
+    FullAdder(a=zerothBitCarry, b=a[1], c=b[1], sum=out[1], carry=firstBitCarry);
+    FullAdder(a=firstBitCarry, b=a[2], c=b[2], sum=out[2], carry=secondBitCarry);
+    FullAdder(a=secondBitCarry, b=a[3], c=b[3], sum=out[3], carry=thirdBitCarry);
+    FullAdder(a=thirdBitCarry, b=a[4], c=b[4], sum=out[4], carry=fourthBitCarry);
+    FullAdder(a=fourthBitCarry, b=a[5], c=b[5], sum=out[5], carry=fifthBitCarry);
+    FullAdder(a=fifthBitCarry, b=a[6], c=b[6], sum=out[6], carry=sixthBitCarry);
+    FullAdder(a=sixthBitCarry, b=a[7], c=b[7], sum=out[7], carry=seventhBitCarry);
+    FullAdder(a=seventhBitCarry, b=a[8], c=b[8], sum=out[8], carry=eighthBitCarry);
+    FullAdder(a=eighthBitCarry, b=a[9], c=b[9], sum=out[9], carry=ninthBitCarry);
+    FullAdder(a=ninthBitCarry, b=a[10], c=b[10], sum=out[10], carry=tenthBitCarry);
+    FullAdder(a=tenthBitCarry, b=a[11], c=b[11], sum=out[11], carry=eleventhBitCarry);
+    FullAdder(a=eleventhBitCarry, b=a[12], c=b[12], sum=out[12], carry=twelftBitCarry);
+    FullAdder(a=twelftBitCarry, b=a[13], c=b[13], sum=out[13], carry=thirteenthBitCarry);
+    FullAdder(a=thirteenthBitCarry, b=a[14], c=b[14], sum=out[14], carry=fourteenthBitCarry);
+    FullAdder(a=fourteenthBitCarry, b=a[15], c=b[15], sum=out[15], carry=IgnoredCarry);
+}
