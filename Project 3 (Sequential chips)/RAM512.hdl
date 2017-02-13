@@ -1,0 +1,25 @@
+/**
+ * Memory of 512 registers, each 16 bit-wide. Out holds the value
+ * stored at the memory location specified by address. If load==1, then 
+ * the in value is loaded into the memory location specified by address 
+ * (the loaded value will be emitted to out from the next time step onward).
+ */
+
+CHIP RAM512 {
+    IN in[16], load, address[9];
+    OUT out[16];
+
+    PARTS:
+    DMux8Way(in=load, sel=address[0..2], a=firstRam64Load, b=secondRam64Load, c=thirdRam64Load, d=fourthRam64Load, e=fifthRam64Load, f=sixthRam64Load, g=seventhRam64Load, h=eighthRam64Load);
+
+    RAM64(in=in, load=firstRam64Load, address=address[3..8], out=firstRam64Out);
+    RAM64(in=in, load=secondRam64Load, address=address[3..8], out=secondRam64Out);
+    RAM64(in=in, load=thirdRam64Load, address=address[3..8], out=thirdRam64Out);
+    RAM64(in=in, load=fourthRam64Load, address=address[3..8], out=fourthRam64Out);
+    RAM64(in=in, load=fifthRam64Load, address=address[3..8], out=fifthRam64Out);
+    RAM64(in=in, load=sixthRam64Load, address=address[3..8], out=sixthRam64Out);
+    RAM64(in=in, load=seventhRam64Load, address=address[3..8], out=seventhRam64Out);
+    RAM64(in=in, load=eighthRam64Load, address=address[3..8], out=eighthRam64Out);
+
+    Mux8Way16(a=firstRam64Out, b=secondRam64Out, c=thirdRam64Out, d=fourthRam64Out, e=fifthRam64Out, f=sixthRam64Out, g=seventhRam64Out, h=eighthRam64Out, sel=address[0..2], out=out);
+}
